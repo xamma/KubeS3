@@ -91,19 +91,18 @@ async def api_upload_object(file: UploadFile):
 async def api_delete_object(object_name:str):
     try:
         S3Object = app.S3Object
-        if object_name in S3Object.list_objects():
-            S3Object.delete_object(object_name=object_name)
-            
-            res = {
-                "message": f"Successfully deleted object {object_name}",
-                "status_code": 200
-            }
-        else:
-            raise HTTPException(404, detail=f"Object {object_name} not found.")
+        for obj in S3Object.list_objects():
+            if obj.get("filename") == object_name:
+                S3Object.delete_object(object_name=object_name)
+                res = {
+                    "message": f"Successfully deleted object {object_name}",
+                    "status_code": 200
+                }
+                return res
+
+        raise HTTPException(404, detail=f"Object {object_name} not found.")
     except:
         raise HTTPException(400, detail=f"Error deleting object {object_name}")
-    
-    return res
 
 if __name__ == "__main__":
     if "dev".lower() in sys.argv:
