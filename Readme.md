@@ -5,20 +5,20 @@ It is based on my personal knowledge which I acquired by myself over time and le
 The intention is to create a similar project in a workshop to get the attendees started with DevOps and SE.  
 
 ## Topics
-RestAPI
-Cloud-native
-Object-oriented-programming (OOP)
-Git
-CI/CD
-Docker / Containerization
-SPA
-Microservices
-Kubernetes
-ReactJS
-Python
-Node.js
-npm / npx / pip
-JSON / YAML
+RestAPI  
+Cloud-native  
+Object-oriented-programming (OOP)  
+Git  
+CI/CD  
+Docker / Containerization  
+SPA  
+Microservices  
+Kubernetes  
+ReactJS  
+Python  
+Node.js  
+npm / npx / pip  
+JSON / YAML  
 
 ## The app
 Fullstack-App for uploading data to S3 storage via RestAPI and SPA.  

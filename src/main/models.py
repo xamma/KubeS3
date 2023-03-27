@@ -8,7 +8,6 @@ class AppConfig(BaseModel):
     and what happens, when the entry is not defined.
     """
     api_port : int | None = None
-    data_dir : str | None = None
     allowed_mime_types : List | None = None
     minio_port : str | None = None
     minio_host : str | None = None
