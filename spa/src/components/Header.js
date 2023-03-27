@@ -14,7 +14,7 @@ const Header = () => {
       <nav className="header--nav">
         <Link to="/">Home</Link> |{" "}
         <Link to="/upload">Upload</Link> |{" "}
-        <Link to="/play">Delete</Link> |{" "}
+        <Link to="/delete">Delete</Link> |{" "}
         <Link to="/about">About</Link>
       </nav>
       {/* for using inside of header component */}
