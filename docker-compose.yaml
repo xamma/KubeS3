@@ -1,0 +1,23 @@
+services:
+  devops-backend-srv:
+    image: ghcr.io/xamma/devops-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+        - "8000:8000"
+  devops-frontend-srv:
+    image: ghcri.io/xamma/devops-frontend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+        - "80:80"
+  minio:
+    image: bitnami/minio:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - my_s3_data:/data
+volumes:
+  my_s3_data:

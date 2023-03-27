@@ -1,0 +1,46 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: gray;
+  font-family: "Karla", sans-serif;
+} 
+
+.header {
+  font-family: "Karla", sans-serif;
+  display: flex;
+  align-items: center;
+  height: 65px;
+  background: rgb(53, 53, 52);
+  color: white;
+  padding: 20px;
+}
+
+.header--nav {
+  margin-right: 30px;
+  font-size: 1.25rem;
+}
+
+.header--title {
+  font-size: 1.25rem;
+  margin-right: auto;
+}
+
+.header--icon {
+  margin-right: 20px;
+  color: aquamarine;
+}
+
+.app--container {
+  color: white;
+  margin: 5px;
+  padding: 5px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: wheat;
+}

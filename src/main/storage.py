@@ -2,9 +2,6 @@ from minio import Minio
 from minio.error import S3Error
 import datetime
 
-# config settings go here
-# HERE
-
 class MinIO:
     """
     This is the operator for the MiniO S3 Storage
