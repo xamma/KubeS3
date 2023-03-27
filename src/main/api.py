@@ -42,15 +42,20 @@ app.add_middleware(
 )
 
 #-API Area--------------------------------
-# Get hostname
-@app.get('/', tags=["root", "object_handler"])
+# Root
+@app.get('/', tags=["root"])
 async def root():
+    return {"message": "Hello from the API"}
+
+# Get hostname and content
+@app.get('/api/get', tags=["object_handler"])
+async def api_get():
     S3Object = app.S3Object
     data_list = S3Object.list_objects()
     hostname = socket.gethostname()
     res = {
         'hostname': hostname,
-        'images': data_list
+        'objects': data_list
     }
     
     return res

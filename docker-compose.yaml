@@ -7,7 +7,7 @@ services:
     ports:
         - "8000:8000"
   devops-frontend-srv:
-    image: ghcri.io/xamma/devops-frontend:latest
+    image: ghcr.io/xamma/devops-frontend:latest
     build:
       context: .
       dockerfile: Dockerfile.frontend

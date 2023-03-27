@@ -19,6 +19,7 @@ Python
 Node.js  
 npm / npx / pip  
 JSON / YAML  
+Reverse Proxy  
 
 ## The app
 Fullstack-App for uploading data to S3 storage via RestAPI and SPA.  
@@ -30,7 +31,10 @@ Fullstack-App for uploading data to S3 storage via RestAPI and SPA.
 If you dont pass ENVs the default user is **minio** and Password is **miniosecret**.
 
 ### Dev-Environment with Docker-compose
-```docker-compose up -d```
+```
+docker-compose up -d
+docker-compose build --no-cache
+```
 
 ### Deploy to Kubernetes
 ```kubectl apply -f k8s_stack.yaml```

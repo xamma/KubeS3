@@ -6,6 +6,7 @@ import {
 import Header from "./components/Header";
 
 import Home from "./routes/Home";
+import Upload from "./routes/Upload"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className="app--container">
         <Routes>
           <Route path="/" element={<Home /> } ></Route>
+          <Route path="/upload" element={<Upload /> } ></Route>
           <Route
           path="*"
           element={

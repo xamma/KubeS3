@@ -13,7 +13,7 @@ const Header = () => {
       <h2 className="header--title">S3 API Frontend</h2>
       <nav className="header--nav">
         <Link to="/">Home</Link> |{" "}
-        <Link to="/play">Upload</Link> |{" "}
+        <Link to="/upload">Upload</Link> |{" "}
         <Link to="/play">Delete</Link> |{" "}
         <Link to="/about">About</Link>
       </nav>
