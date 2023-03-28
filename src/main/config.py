@@ -10,7 +10,7 @@ Make sure to match the types defined in the AppConfig in models.py
 
 user_data = {
   "api_port": 8000,
-  "allowed_mime_types": ["image/jpeg", "image/png", "application/pdf", "application/json"],
+  "allowed_mime_types": ["image/jpeg", "image/png", "image/bmp", "application/pdf", "application/json", "text/csv"],
   "minio_port": 9000,
   "minio_host": "minio",
   "bucket_name": "my-s3-bucket"

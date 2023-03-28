@@ -75,6 +75,9 @@ async def api_upload_object(file: UploadFile):
             contents = await file.read()
             temp_file.write(contents)
 
+            # Remove whitespaces from the filename
+            file.filename = file.filename.replace(" ", "")
+
             S3Object.upload_object(file_path=temp_file.name, object_name=file.filename)
 
         res = {

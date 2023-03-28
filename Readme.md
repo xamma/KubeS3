@@ -1,5 +1,5 @@
-# DevOps - Knowledge Transfer
-This is an comprehensive project including (most) of the technologies used in software
+# DevOps - Basics and not-so Basics
+This is an comprehensive project including some of the technologies used in software
 engineering and DevOps.  
 It is based on my personal knowledge which I acquired by myself over time and learned from different projects.  
 The intention is to create a similar project in a workshop to get the attendees started with DevOps and SE.  
@@ -22,7 +22,7 @@ JSON / YAML
 Reverse Proxy  
 
 ## The app
-Fullstack-App for uploading data to S3 storage via RestAPI and SPA.  
+Fullstack-App for uploading data to S3 storage via RestAPI and SPA. Written in Microservice-Architecture.  
 
 ## How to run
 
