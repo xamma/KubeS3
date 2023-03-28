@@ -1,4 +1,7 @@
 # KubeS3
+
+[![Docker Image CI](https://github.com/xamma/KubeS3/actions/workflows/docker-image.yml/badge.svg)](https://github.com/xamma/KubeS3/actions/workflows/docker-image.yml)
+
 This is an comprehensive project including some of the technologies used in software
 engineering and DevOps.  
 It is based on my personal knowledge which I acquired by myself over time and learned from different projects.  

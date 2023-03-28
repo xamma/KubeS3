@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name:  kubes3
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubes3-configmap
+  namespace: kubes3
+data:
+  ALLOWED_MIME_TYPES: >-
+    image/jpeg
+    image/png
+    image/bmp
+    application/pdf
+    application/json
+    text/csv
+  MINIO_HOST: "minio"
+  MINIO_PORT: "9000"
+  API_PORT: "8000"
+  BUCKET_NAME: "my-s3-bucket"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kubes3-claim
+  namespace: kubes3
+  labels:
+    app: kubes3
+spec:
+  storageClassName: local-path
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minio
+  namespace: ecommerce-fullstack
+  labels:
+    app: minio
+spec:
+  containers:
+  - name: minio
+    image: bitnami/minio
+    ports:
+    - containerPort:  9000
+      name:  minio
+    volumeMounts:
+    - name: minio-vol
+      mountPath: /data
+  volumes:
+    - name: minio-vol
+      persistentVolumeClaim:
+        claimName: kubes3-claim
+  restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubes3-depl
+  namespace: kubes3
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubes3
+  template:
+    metadata:
+      labels:
+        app: kubes3
+    spec:
+      containers:
+      - name: backend-container
+        image: ghcr.io/xamma/kubes3-backend:latest
+        imagePullPolicy: Always
+        env:
+          - name: ALLOWED_MIME_TYPES
+            valueFrom:
+              configMapKeyRef:
+                name: kubes3-configmap
+                key: ALLOWED_MIME_TYPES
+          - name: API_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: kubes3-configmap
+                key: API_PORT
+          - name: MINIO_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: kubes3-configmap
+                key: MINIO_PORT
+          - name: MINIO_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: kubes3-configmap
+                key: MINIO_HOST
+          - name: BUCKET_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: kubes3-configmap
+                key: BUCKET_NAME
+        ports:
+        - containerPort: 8000
+          name: backend-port
+      - name: frontend-container
+        image: ghcr.io/xamma/kubes3-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: frontend-port
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: kubes3
+spec:
+  selector:
+    app: minio
+  type: ClusterIP
+  ports:
+  - name: minio
+    protocol: TCP
+    port: 9000
+    targetPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubes3-frontend-srv
+  namespace: kubes3
+spec:
+  selector:
+    app: kubes3
+  type: ClusterIP
+  ports:
+  - name: frontend
+    protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubes3-backend-srv
+  namespace: kubes3
+spec:
+  selector:
+    app: kubes3
+  type: ClusterIP
+  ports:
+  - name: backend
+    protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubes3-ingress
+  namespace: kubes3
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubes3-frontend-srv
+            port:
+              number: 80
