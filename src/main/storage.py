@@ -72,3 +72,12 @@ class MinIO:
             )
         except S3Error as e:
             print("Error", e)
+
+    def download_object(self, object_name:str, file_path:str):
+        try:
+            self.minio_client.fget_object(
+                self.bucket_name, object_name, file_path
+            )
+            print(f"Object {object_name} successfully downloaded to {file_path}")
+        except S3Error as e:
+            print ("Error", e)

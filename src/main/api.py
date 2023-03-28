@@ -1,8 +1,10 @@
 import socket
 import tempfile
+import os
 import sys
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -59,6 +61,18 @@ async def api_get():
     }
     
     return res
+
+# Download an data-object
+@app.get('/api/download/{object_name}', tags=["object_handler"])
+async def api_download_object(object_name:str):
+    file_path = os.path.join(tempfile.gettempdir(), object_name)
+    try:
+        S3Object = app.S3Object
+        S3Object.download_object(object_name, file_path)
+        # return Response(content=open(file_path, 'rb').read(), media_type="application`/octet-stream")
+        return FileResponse(file_path, media_type="application/octet-stream", filename=object_name)
+    except:
+        raise HTTPException(400, detail=f"Error downloading {object_name}")
 
 # Post an data-object
 @app.post('/api/upload', tags=["object_handler"])
