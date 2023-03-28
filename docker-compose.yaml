@@ -1,13 +1,13 @@
 services:
-  devops-backend-srv:
-    image: ghcr.io/xamma/devops-backend:latest
+  kubes3-backend-srv:
+    image: ghcr.io/xamma/kubes3-backend:latest
     build:
       context: .
       dockerfile: Dockerfile.backend
     ports:
         - "8000:8000"
-  devops-frontend-srv:
-    image: ghcr.io/xamma/devops-frontend:latest
+  kubes3-frontend-srv:
+    image: ghcr.io/xamma/kubes3-frontend:latest
     build:
       context: .
       dockerfile: Dockerfile.frontend

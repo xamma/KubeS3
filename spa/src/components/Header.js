@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header className="header">
       <HeaderIcon className="header--icon"/>
-      <h2 className="header--title">S3 API Frontend</h2>
+      <h2 className="header--title">KubeS3</h2>
       <nav className="header--nav">
         <Link to="/">Home</Link> |{" "}
         <Link to="/upload">Upload</Link> |{" "}

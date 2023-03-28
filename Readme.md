@@ -1,4 +1,4 @@
-# DevOps - Basics and not-so Basics
+# KubeS3
 This is an comprehensive project including some of the technologies used in software
 engineering and DevOps.  
 It is based on my personal knowledge which I acquired by myself over time and learned from different projects.  
@@ -42,8 +42,8 @@ If you dont pass ENVs the default user is **minio** and Password is **miniosecre
 
 ### Dev-Environment with Docker-compose
 ```
-docker-compose up -d
 docker-compose build --no-cache
+docker-compose up -d
 ```
 
 ### Deploy to Kubernetes

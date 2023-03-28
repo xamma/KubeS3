@@ -14,7 +14,7 @@ const About = () => {
       </a>
       <br></br>
       <h3>Visit my personal Website</h3>
-      <a className="github--link" href="https://github.com/xamma" target="_blank" rel="noreferrer">
+      <a className="github--link" href="https://xamma.github.io" target="_blank" rel="noreferrer">
         Visit me
       </a>
     </div>
