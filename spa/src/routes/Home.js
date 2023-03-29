@@ -14,11 +14,11 @@ const Home = () => {
 
   const objects = data.objects || []
 
-  const apiElements = objects.map((product, id) => {
+  const apiElements = objects.map((object, id) => {
     return <Item key={id}
-      filename={product.filename}
-      size={product.size}
-      uploaded={product.uploaded}
+      filename={object.filename}
+      size={object.size}
+      uploaded={object.uploaded}
       />
   })
 
