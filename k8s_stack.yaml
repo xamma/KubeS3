@@ -11,11 +11,11 @@ metadata:
   namespace: kubes3
 data:
   ALLOWED_MIME_TYPES: >-
-    image/jpeg
-    image/png
-    image/bmp
-    application/pdf
-    application/json
+    image/jpeg,
+    image/png,
+    image/bmp,
+    application/pdf,
+    application/json,
     text/csv
   MINIO_HOST: "minio"
   MINIO_PORT: "9000"
@@ -43,7 +43,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: minio
-  namespace: ecommerce-fullstack
+  namespace: kubes3
   labels:
     app: minio
 spec:
