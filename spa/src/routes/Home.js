@@ -26,7 +26,7 @@ const Home = () => {
     <div className='home--view'>
       <h1>Hostname: {data.hostname}</h1>
       { apiElements.length !== 0 ?
-        {apiElements}
+        apiElements
       : <p className='no--elements'>No elements yet. Try uploading some!</p> }
     </div>
   )
