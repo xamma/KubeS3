@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: kubes3
+spec:
+  selector:
+    app: minio
+  type: ClusterIP
+  ports:
+  - name: s3
+    protocol: TCP
+    port: 9000
+    targetPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubes3-frontend-srv
+  namespace: kubes3
+spec:
+  selector:
+    app: kubes3
+  type: ClusterIP
+  ports:
+  - name: frontend
+    protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubes3-backend-srv
+  namespace: kubes3
+spec:
+  selector:
+    app: kubes3
+  type: ClusterIP
+  ports:
+  - name: backend
+    protocol: TCP
+    port: 8000
+    targetPort: 8000

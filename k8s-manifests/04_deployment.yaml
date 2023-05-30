@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubes3-depl
+  namespace: kubes3
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubes3
+  template:
+    metadata:
+      labels:
+        app: kubes3
+    spec:
+      containers:
+      - name: backend-container
+        image: ghcr.io/xamma/kubes3-backend:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: kubes3-configmap
+        ports:
+        - containerPort: 8000
+          name: backend-port
+      - name: frontend-container
+        image: ghcr.io/xamma/kubes3-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: frontend-port
+      restartPolicy: Always

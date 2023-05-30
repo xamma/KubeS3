@@ -50,4 +50,10 @@ docker-compose up -d
 ```
 
 ### Deploy to Kubernetes
-```kubectl apply -f k8s_stack.yaml```
+
+```kubectl apply -f k8s-manifests```  
+
+I reworked the K8s-manifests to not be all in one file, but to be consolidated in the folder **k8s-manifests**.  
+Also I changed the Pod and PVC combination for the minio-Data to an StatefulSet.  
+Another change is to not pass the ConfigMap Key-by-Key instead use ***envFrom***.  
+You can still use the old stack: ```kubectl apply -f k8s_stack-old.yaml```

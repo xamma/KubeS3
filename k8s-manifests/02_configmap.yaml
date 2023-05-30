@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubes3-configmap
+  namespace: kubes3
+data:
+  ALLOWED_MIME_TYPES: >-
+    image/jpeg,
+    image/png,
+    image/bmp,
+    application/pdf,
+    application/json,
+    text/csv
+  MINIO_HOST: "minio"
+  MINIO_PORT: "9000"
+  API_PORT: "8000"
+  BUCKET_NAME: "my-s3-bucket"

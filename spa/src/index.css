@@ -97,6 +97,11 @@ a:hover {
   text-align: center;
 }
 
+.no--elements {
+  font-size: 25px;
+  color: gold
+}
+
 .upload--button {
   background-color: #4CAF50;
   border: none;
