@@ -97,6 +97,21 @@ a:hover {
   text-align: center;
 }
 
+.loading--spinner {
+  border: 8px solid #f3f3f3; /* Light gray border */
+  border-top: 8px solid #3498db; /* Blue border on top */
+  border-radius: 50%; /* Create a circular shape */
+  width: 40px; /* Set the width and height of the spinner */
+  height: 40px;
+  animation: spin 1s linear infinite; /* Apply rotation animation */
+  margin: 100px auto; /* Add margin to adjust position */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .no--elements {
   font-size: 25px;
   color: gold

@@ -2,23 +2,41 @@ import React from 'react'
 import Item from '../components/Item'
 
 const Home = () => {
-
+  
+  const [loading, setLoading] = React.useState(true)
   const [data, setData] = React.useState({})
 
   React.useEffect(() => {
     fetch("/api/get")
       .then(res => res.json())
-      .then(data => setData(data))
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+
   }, [])
   // console.log(data)
+
+  if (loading) {
+    return (
+      <div className='home--view'>
+        <div className='loading--spinner'></div>
+      </div>
+    )
+  }
 
   const objects = data.objects || []
 
   const apiElements = objects.map((object, id) => {
-    return <Item key={id}
-      filename={object.filename}
-      size={object.size}
-      uploaded={object.uploaded}
+    return <Item
+        key={id}
+        filename={object.filename}
+        size={object.size}
+        uploaded={object.uploaded}
       />
   })
 
