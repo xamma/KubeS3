@@ -22,7 +22,7 @@ metadata:
   namespace: kubes3
 spec:
   selector:
-    app: kubes3
+    app: kubes3-fe
   type: ClusterIP
   ports:
   - name: frontend
@@ -38,7 +38,7 @@ metadata:
   namespace: kubes3
 spec:
   selector:
-    app: kubes3
+    app: kubes3-be
   type: ClusterIP
   ports:
   - name: backend
