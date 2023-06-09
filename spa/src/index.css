@@ -1,12 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
+
 body {
-  margin: 0px;
-  padding: 0px;
-  background-color: gray;
-  font-family: "Karla", sans-serif;
-} 
+  background-color: #f2f2f2;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  color: #333333;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
 
 .header {
-  font-family: "Karla", sans-serif;
   display: flex;
   align-items: center;
   height: 65px;
@@ -31,39 +41,38 @@ body {
 }
 
 .app--container {
-  color: white;
+  color: rgb(114, 108, 108);
   margin: 5px;
   padding: 5px;
 }
 
 a {
-  color: white;
+  color: #ff6f61;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 a:hover {
-  color: wheat;
+  color: #ff8f7a;
+  text-decoration: underline;
 }
 
 .item--card {
-  font-family: "Roboto";
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   margin-bottom: 22px;
   display: flex;
   max-width: 500px;
   align-items: center;
-  background-color: white;
-  color: black;
+  background-color: white; /* Update to the desired background color for the cards */
+  color: #333333;
   border-radius: 10px;
-  border-color: #3a3a3b;
-  border-style: solid;
+  border: 1px solid #3a3a3b;
 }
 
-/* On mouse-over, add a deeper shadow */
 .item--card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
 }
 
 .item--container {
@@ -74,6 +83,7 @@ a:hover {
   background-color: #108fba;
   border-style: solid;
   border-color: black;
+  border-width: 1px;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -98,7 +108,7 @@ a:hover {
 }
 
 .loading--spinner {
-  border: 8px solid #f3f3f3; /* Light gray border */
+  border: 8px solid #c8c8c8; /* Light gray border */
   border-top: 8px solid #3498db; /* Blue border on top */
   border-radius: 50%; /* Create a circular shape */
   width: 40px; /* Set the width and height of the spinner */
@@ -114,11 +124,11 @@ a:hover {
 
 .no--elements {
   font-size: 25px;
-  color: gold
+  color: #ff6f61
 }
 
 .upload--button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -152,10 +162,10 @@ a:hover {
   border-radius: 5px;
   border: none;
   background-color: #151111;
+  color: white;
 }
 
 .upload--view {
-  /* padding: 20px; */
   text-align: center;
 }
 
@@ -197,12 +207,11 @@ a:hover {
 }
 
 .delete--view {
-  /* padding: 20px; */
   text-align: center;
 }
 
 .github--link {
-  color: gold;
+  color: #ff6f61; /* Updated to a different color */
 }
 
 .about--screen {

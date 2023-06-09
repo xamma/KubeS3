@@ -21,6 +21,25 @@ const Home = () => {
   }, [])
   // console.log(data)
 
+  // React.useEffect(() => {
+  //   // Simulate API fetch
+  //   const fakeData = {
+  //     hostname: 'example.com',
+  //     objects: [
+  //       { filename: 'file1.txt', size: '10 KB', uploaded: '2023-06-09' },
+  //       { filename: 'file2.jpg', size: '2 MB', uploaded: '2023-06-08' },
+  //       { filename: 'file3.pdf', size: '500 KB', uploaded: '2023-06-07' }
+  //     ]
+  //   };
+
+  //   // Simulate delay before setting the fake data
+  //   setTimeout(() => {
+  //   // Set the fake data to the state
+  //     setData(fakeData);
+  //     setLoading(false);
+  //   }, 2000); // Simulate a 2-second delay  
+  // }, []);
+
   if (loading) {
     return (
       <div className='home--view'>
