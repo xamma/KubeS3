@@ -56,4 +56,11 @@ docker-compose up -d
 I reworked the K8s-manifests to not be all in one file, but to be consolidated in the folder **k8s-manifests**.  
 Also I changed the Pod and PVC combination for the minio-Data to an StatefulSet.  
 Another change is to not pass the ConfigMap Key-by-Key instead use ***envFrom***.  
-You can still use the old stack: ```kubectl apply -f k8s_stack-old.yaml```
+You can still use the old stack: ```kubectl apply -f k8s_stack-old.yaml```  
+
+**Important**: The newest Stack uses ***OpenEBS*** as storage provider and thus needs to be installed on the K8s-Cluster the application is deployed to.  
+```
+helm repo add openebs https://openebs.github.io/charts
+helm repo update
+helm install openebs --namespace openebs openebs/openebs --create-namespace
+```

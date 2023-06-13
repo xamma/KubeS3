@@ -28,7 +28,8 @@ spec:
   - metadata:
       name: minio-vol
     spec:
-      storageClassName: local-path
+      # storageClassName: local-path
+      storageClassName: openebs-hostpath
       accessModes:
         - ReadWriteOnce
       resources:
