@@ -64,3 +64,11 @@ helm repo add openebs https://openebs.github.io/charts
 helm repo update
 helm install openebs --namespace openebs openebs/openebs --create-namespace
 ```
+
+### CI/CD and GitOps
+I tried to use best-practices regarding CI/CD and GitOps.  
+My CI pipeline is realized with **GithubActions** which build my Frontend- and Backend-ContainerImages and pushes them to the GHCR.  
+The CD part is taken care of from **ArgoCD** (running on K8s) which lets me deploy the Application directly to Kubernetes and keeps
+it up-to-date and synced based on new commits.
+
+![ArgoCD](assets/Argo.png)
