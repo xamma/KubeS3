@@ -51,22 +51,25 @@ class MinIO:
 
     def list_objects(self):
         try:
-            res = self.minio_client.list_objects(
-                self.bucket_name
-            )
+            res = self.minio_client.list_objects(self.bucket_name)
             data = []
             for item in res:
                 item_dict = {
-                    "filename": item.__dict__["_object_name"],
-                    "uploaded": int(datetime.datetime.timestamp(item.__dict__["_last_modified"])),
-                    "size": item.__dict__["_size"]
+                    "filename": item.object_name,
+                    "uploaded": int(datetime.datetime.timestamp(item.last_modified)),
+                    "size": item.size,
+                    "thumbnail_url": self.get_thumbnail_url(item.object_name)
                 }
                 data.append(item_dict)
 
             return data
-        
         except S3Error as e:
             print("Error", e)
+
+    def get_thumbnail_url(self, filename):
+        thumbnail_object_name = f"thumb_{filename}"
+        thumbnail_object_url = self.minio_client.presigned_get_object('thumbs', thumbnail_object_name)
+        return thumbnail_object_url
 
     def delete_object(self, object_name:str):
         try:

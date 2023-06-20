@@ -111,6 +111,7 @@ async def api_upload_object(file: UploadFile):
                     thumbnail_file.write(response.content)
                     thumbnail_file.flush()
                     os.fsync(thumbnail_file.fileno())
+                    print(thumbnail_file.name)
 
                     # Create an instance of the MinIO class for the thumbs bucket
                     thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, bucket_name='thumbs', minio_port=config_settings.minio_port)
