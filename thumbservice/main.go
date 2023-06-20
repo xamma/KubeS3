@@ -93,12 +93,12 @@ func createThumbnail(c *gin.Context) {
 func getPlaceholderImagePath(ext string) string {
 	switch strings.ToLower(ext) {
 	case ".pdf":
-		return "./assets/placeholder.png"
+		return "./assets/pdf_placeholder.png"
 	case ".csv":
-		return "./placeholder_image2.jpg"
+		return "./assets/csv_placeholder.png"
 	// Add cases for other unsupported file types if needed
 	default:
-		return "./placeholder_image.jpg" // Default placeholder image for unsupported file types
+		return "./assets/notsupported_placeholder.png" // Default placeholder image for unsupported file types
 	}
 }
 
