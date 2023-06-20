@@ -42,6 +42,10 @@ class MinIO:
                 self.bucket_name, object_name, file_path
             )
             print(f"Object {object_name} successfully uploaded to bucket {self.bucket_name}")
+
+            # Get the URL of the uploaded object
+            object_url = self.minio_client.presigned_get_object(self.bucket_name, object_name)
+            return object_url
         except S3Error as e:
             print("Error", e)
 

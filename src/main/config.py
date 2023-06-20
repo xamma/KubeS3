@@ -12,7 +12,7 @@ user_data = {
   "api_port": 8000,
   "allowed_mime_types": ["image/jpeg", "image/png", "image/bmp", "application/pdf", "application/json", "text/csv"],
   "minio_port": 9000,
-  "minio_host": "minio",
+  "minio_host": "localhost",
   "bucket_name": "my-s3-bucket"
 }
 
