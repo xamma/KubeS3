@@ -45,3 +45,19 @@ spec:
     protocol: TCP
     port: 8000
     targetPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubes3-thumbs-srv
+  namespace: kubes3
+spec:
+  selector:
+    app: kubes3-thumbs
+  type: ClusterIP
+  ports:
+  - name: thumbs
+    protocol: TCP
+    port: 8000
+    targetPort: 8000

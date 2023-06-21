@@ -50,3 +50,28 @@ spec:
         - containerPort: 80
           name: frontend-port
       restartPolicy: Always
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubes3-thumbs-depl
+  namespace: kubes3
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubes3-thumbs
+  template:
+    metadata:
+      labels:
+        app: kubes3-thumbs
+    spec:
+      containers:
+      - name: thumbs-container
+        image: ghcr.io/xamma/kubes3-thumbs:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: thumbs-port
+      restartPolicy: Always
