@@ -6,17 +6,14 @@ import (
 
 func LoadConfig() (*AppConfig, error) {
 	defaultEnvVars := map[string]string{
-		"CUSTOM_MESSAGE": "Here could be your message",
 		"API_PORT": "8080",
 		"DATA_DIR": "./data",
 	}
 
-	customMessage := getEnv("CUSTOM_MESSAGE", defaultEnvVars)
 	apiPort := getEnv("API_PORT", defaultEnvVars)
 	dataDir := getEnv("DATA_DIR", defaultEnvVars)
 
 	config := &AppConfig{
-		CustomMessage: customMessage,
 		ApiPort: apiPort,
 		DataDir: dataDir,
 	}

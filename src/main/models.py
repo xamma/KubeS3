@@ -12,3 +12,5 @@ class AppConfig(BaseModel):
     minio_port : str | None = None
     minio_host : str | None = None
     bucket_name : str | None = None
+    thumb_bucket_name : str | None = None
+    thumbnail_service_host : str | None = None

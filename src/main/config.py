@@ -13,7 +13,9 @@ user_data = {
   "allowed_mime_types": ["image/jpeg", "image/png", "image/bmp", "application/pdf", "application/json", "text/csv"],
   "minio_port": 9000,
   "minio_host": "localhost",
-  "bucket_name": "my-s3-bucket"
+  "bucket_name": "my-s3-bucket",
+  "thumb_bucket_name": "thumbs",
+  "thumbnail_service_host": "http://localhost:8080/api/v1/thumbnail"
 }
 
 #-Create settings object----------------

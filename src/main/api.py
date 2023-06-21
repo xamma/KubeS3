@@ -92,6 +92,8 @@ async def api_upload_object(file: UploadFile):
             # Write file contents to the temporary file
             contents = await file.read()
             temp_file.write(contents)
+            temp_file.flush()
+            os.fsync(temp_file.fileno())
 
             # Remove whitespaces from the filename
             file.filename = file.filename.replace(" ", "")
@@ -103,7 +105,7 @@ async def api_upload_object(file: UploadFile):
             payload = {'file': (file.filename, contents, file.content_type)}
 
             # Make a POST request to the Go microservice
-            response = requests.post('http://localhost:8080/api/v1/thumbnail', files=payload)
+            response = requests.post(config_settings.thumbnail_service_host, files=payload)
             # print(response.content)
 
             thumbnail_object_url = None  # Initialize with a default value
@@ -139,7 +141,7 @@ async def api_upload_object(file: UploadFile):
                     print("Thumbnail filename:", thumbnail_filename)
 
                     # Create an instance of the MinIO class for the thumbs bucket
-                    thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, bucket_name='thumbs', minio_port=config_settings.minio_port)
+                    thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, bucket_name=config_settings.thumb_bucket_name, minio_port=config_settings.minio_port)
 
                     # Upload the thumbnail image to the thumbs MinIO bucket with the appropriate filename
                     thumbnail_object_name = thumbnail_filename

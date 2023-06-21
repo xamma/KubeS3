@@ -87,6 +87,12 @@ func createThumbnail(c *gin.Context) {
 
 	// Return the thumbnail as the response
 	c.File(thumbnailFilePath)
+
+	// empty the directory
+	err = deleteDirContents(config.DataDir)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Get the path of the placeholder image based on the file extension
@@ -104,10 +110,18 @@ func getPlaceholderImagePath(ext string) string {
 	}
 }
 
+func deleteDirContents(dir string) error {
 
-// @title           Gin Web Service
+	err := os.RemoveAll(dir)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// @title           Thumbnail Service
 // @version         1.0
-// @description     Testing API in Go using Gin framework.
+// @description     Thumbnail service for KubeS3 with Gin framework.
 // @termsOfService  placeholder
 
 // @contact.name   Max
