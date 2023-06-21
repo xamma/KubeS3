@@ -9,6 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import requests
 
+import mimetypes
+import pathlib
+
 from storage import MinIO
 
 """
@@ -113,12 +116,36 @@ async def api_upload_object(file: UploadFile):
                     os.fsync(thumbnail_file.fileno())
                     print(thumbnail_file.name)
 
+                    # Determine the file extension based on the original file's MIME type
+                    original_file_extension = mimetypes.guess_extension(file.content_type)
+
+                    # Remove the original file's extension
+                    original_filename_without_extension = pathlib.Path(file.filename).stem
+
+                    # Check if the file is an image
+                    if file.content_type.startswith('image/'):
+                        # Use the original file's extension as the thumbnail file extension
+                        thumbnail_file_extension = original_file_extension
+                    else:
+                        # Set the thumbnail file extension to PNG
+                        thumbnail_file_extension = '.png'
+
+                    # Append the thumbnail file extension to the original filename without extension
+                    thumbnail_filename = f"thumb_{original_filename_without_extension}{thumbnail_file_extension}"
+
+                    print("Original filename:", file.filename)
+                    print("Original file extension:", original_file_extension)
+                    print("Original filename without extension:", original_filename_without_extension)
+                    print("Thumbnail filename:", thumbnail_filename)
+
                     # Create an instance of the MinIO class for the thumbs bucket
                     thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, bucket_name='thumbs', minio_port=config_settings.minio_port)
 
-                    # Upload the thumbnail image to the thumbs MinIO bucket
-                    thumbnail_object_name = f"thumb_{file.filename}"
+                    # Upload the thumbnail image to the thumbs MinIO bucket with the appropriate filename
+                    thumbnail_object_name = thumbnail_filename
                     thumbnail_object_url = thumbs_minio_client.upload_object(thumbnail_file.name, thumbnail_object_name)
+
+                    print("Thumbnail object URL:", thumbnail_object_url)
 
             # Return the uploaded filename, status code, and the URL of the uploaded objects
             res = {
