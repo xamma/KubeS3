@@ -35,6 +35,10 @@ async def lifespan(app: FastAPI):
                          bucket_name=config_settings.bucket_name, 
                          minio_port=config_settings.minio_port)
     app.S3Object = S3Object
+    thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, 
+                                bucket_name=config_settings.thumb_bucket_name, 
+                                minio_port=config_settings.minio_port)
+    app.thumbs_minio_client = thumbs_minio_client
     yield
 
 app = FastAPI(lifespan=lifespan)
@@ -86,6 +90,7 @@ async def api_upload_object(file: UploadFile):
 
     try:
         S3Object = app.S3Object
+        thumbs_minio_client = app.thumbs_minio_client
 
         # Use tempfile.NamedTemporaryFile() to create a temporary file in memory
         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
@@ -139,9 +144,6 @@ async def api_upload_object(file: UploadFile):
                     print("Original file extension:", original_file_extension)
                     print("Original filename without extension:", original_filename_without_extension)
                     print("Thumbnail filename:", thumbnail_filename)
-
-                    # Create an instance of the MinIO class for the thumbs bucket
-                    thumbs_minio_client = MinIO(minio_host=config_settings.minio_host, bucket_name=config_settings.thumb_bucket_name, minio_port=config_settings.minio_port)
 
                     # Upload the thumbnail image to the thumbs MinIO bucket with the appropriate filename
                     thumbnail_object_name = thumbnail_filename
