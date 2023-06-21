@@ -96,6 +96,8 @@ func getPlaceholderImagePath(ext string) string {
 		return "./assets/pdf_placeholder.png"
 	case ".csv":
 		return "./assets/csv_placeholder.png"
+	case ".json":
+		return "./assets/json_placeholder.png"
 	// Add cases for other unsupported file types if needed
 	default:
 		return "./assets/notsupported_placeholder.png" // Default placeholder image for unsupported file types
