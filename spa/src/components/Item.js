@@ -26,6 +26,7 @@ const Item = (props) => {
     <div className='item--card'>
       <div className='item--container'>
         <h3>File Name: {props.filename}</h3>
+        <img src={props.thumbnailUrl} alt={`Thumbnail for ${props.filename}`} />
         <p>Uploaded: {props.uploaded}</p>
         <p>Size: {props.size}</p>
         <button className='item--download--button' onClick={handleDownload}>Download</button>

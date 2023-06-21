@@ -16,3 +16,5 @@ data:
   MINIO_PORT: "9000"
   API_PORT: "8000"
   BUCKET_NAME: "my-s3-bucket"
+  THUMB_BUCKET_NAME: "thumbs"
+  THUMBNAIL_SERVICE_HOST: kubes3-thumbs-srv:8080/api/v1/thumbnail

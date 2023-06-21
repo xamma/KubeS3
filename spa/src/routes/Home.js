@@ -7,6 +7,7 @@ const Home = () => {
   const [data, setData] = React.useState({})
 
   React.useEffect(() => {
+    // fetch("/api/get")
     fetch("/api/get")
       .then(res => res.json())
       .then(data => {
@@ -56,6 +57,7 @@ const Home = () => {
         filename={object.filename}
         size={object.size}
         uploaded={object.uploaded}
+        thumbnailUrl={object.thumbnail_url}
       />
   })
 

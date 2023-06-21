@@ -1,0 +1,17 @@
+FROM golang:1.20-alpine
+
+WORKDIR /app
+
+COPY /thumbservice/go.mod /thumbservice/go.sum ./
+
+RUN go mod download
+
+COPY /thumbservice/assets/ assets/
+
+COPY /thumbservice/main.go /thumbservice/config.go /thumbservice/models.go ./
+
+RUN go build -o thumbservice
+
+EXPOSE 8080
+
+CMD ["./thumbservice"]

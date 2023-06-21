@@ -43,3 +43,12 @@ jobs:
           file: ./Dockerfile.frontend
           push: true
           tags: ghcr.io/xamma/kubes3-frontend:latest
+
+      - name: Build and push thumbservice
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64
+          file: ./Dockerfile.thumbservice
+          push: true
+          tags: ghcr.io/xamma/kubes3-thumbs:latest
