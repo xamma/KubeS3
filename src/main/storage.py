@@ -56,10 +56,12 @@ class MinIO:
             res = self.minio_client.list_objects(self.bucket_name)
             data = []
             for item in res:
+                last_modified = item.last_modified.strftime("%d.%m.%Y, %H:%M:%S")  # Format the timestamp
+                size_mb = round(item.size / (1024 * 1024), 2)  # Convert size to MB
                 item_dict = {
                     "filename": item.object_name,
-                    "uploaded": int(datetime.datetime.timestamp(item.last_modified)),
-                    "size": item.size,
+                    "uploaded": last_modified,
+                    "size": f"{size_mb} MB",
                 }
                 data.append(item_dict)
 

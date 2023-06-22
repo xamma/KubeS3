@@ -144,6 +144,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	v1 := router.Group("/api/v1")
 
