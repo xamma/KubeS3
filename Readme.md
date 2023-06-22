@@ -27,6 +27,7 @@ This is of course not the most efficient way ;)
 - Kubernetes  
 - ReactJS  
 - Python  
+- Go  
 - Node.js  
 - npm / npx / pip  
 - JSON / YAML  
@@ -36,6 +37,7 @@ This is of course not the most efficient way ;)
 ## The App
 Cloud-native Fullstack-App for interacting with data from and to S3 storage via RestAPI and SPA. Written in Microservice-Architecture.  
 Uses ReactJS in the Frontend, Python with FastAPI in the Backend and MinIO for S3 Storage.  
+Also includes an independent Microservice for creating Thumbnails, written in Go.  
 
 ## How to run
 
@@ -48,6 +50,7 @@ If you dont pass ENVs the default user is **minio** and Password is **miniosecre
 docker-compose build --no-cache
 docker-compose up -d
 ```
+***not up-to-date**
 
 ### Deploy to Kubernetes
 
