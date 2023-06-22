@@ -61,14 +61,22 @@ async def root():
 @app.get('/api/get', tags=["object_handler"])
 async def api_get():
     S3Object = app.S3Object
+    thumbs_minio_client = app.thumbs_minio_client
     data_list = S3Object.list_objects()
     hostname = socket.gethostname()
     res = {
         'hostname': hostname,
-        'objects': data_list
+        'objects': []
     }
-    
+
+    for item in data_list:
+        thumbnail_bucket, thumbnail_data = thumbs_minio_client.get_thumbnail_data(item['filename'])
+        item['thumbnail_bucket'] = thumbnail_bucket
+        item['thumbnail'] = thumbnail_data
+        res['objects'].append(item)
+
     return res
+
 
 # Download an data-object
 @app.get('/api/download/{object_name}', tags=["object_handler"])

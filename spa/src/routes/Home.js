@@ -7,7 +7,7 @@ const Home = () => {
   const [data, setData] = React.useState({})
 
   React.useEffect(() => {
-    // fetch("/api/get")
+    // fetch("http://localhost:8000/api/get")
     fetch("/api/get")
       .then(res => res.json())
       .then(data => {
@@ -52,12 +52,13 @@ const Home = () => {
   const objects = data.objects || []
 
   const apiElements = objects.map((object, id) => {
+    const thumbnailUrl = `data:image/png;base64,${object.thumbnail}`;
     return <Item
         key={id}
         filename={object.filename}
         size={object.size}
         uploaded={object.uploaded}
-        thumbnailUrl={object.thumbnail_url}
+        thumbnailUrl={thumbnailUrl}
       />
   })
 

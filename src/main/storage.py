@@ -1,6 +1,8 @@
 from minio import Minio
 from minio.error import S3Error
 import datetime
+import os
+import base64
 
 class MinIO:
     """
@@ -58,7 +60,6 @@ class MinIO:
                     "filename": item.object_name,
                     "uploaded": int(datetime.datetime.timestamp(item.last_modified)),
                     "size": item.size,
-                    "thumbnail_url": self.get_thumbnail_url(item.object_name)
                 }
                 data.append(item_dict)
 
@@ -66,10 +67,22 @@ class MinIO:
         except S3Error as e:
             print("Error", e)
 
-    def get_thumbnail_url(self, filename):
-        thumbnail_object_name = f"thumb_{filename}"
-        thumbnail_object_url = self.minio_client.presigned_get_object('thumbs', thumbnail_object_name)
-        return thumbnail_object_url
+
+    def get_thumbnail_data(self, filename):
+        thumbnail_bucket = 'thumbs'
+        base_filename, file_extension = os.path.splitext(filename)
+        thumbnail_extension = ".png" if not file_extension.lower() in ['.jpg', '.jpeg', '.bmp'] else file_extension
+        thumbnail_object_name = f"thumb_{base_filename}{thumbnail_extension}"
+        thumbnail_data = self.minio_client.get_object(thumbnail_bucket, thumbnail_object_name)
+        response = self.minio_client.get_object(thumbnail_bucket, thumbnail_object_name)
+        thumbnail_data = response.read()
+        
+        if isinstance(thumbnail_data, str):
+            thumbnail_data = thumbnail_data.encode('utf-8')
+        
+        thumbnail_base64 = base64.b64encode(thumbnail_data).decode('utf-8')
+        return thumbnail_bucket, thumbnail_base64
+
 
     def delete_object(self, object_name:str):
         try:
