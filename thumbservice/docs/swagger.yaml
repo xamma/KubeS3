@@ -1,0 +1,37 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    email: xam93@live.de
+    name: Max
+    url: xamma.github.io
+  description: Thumbnail service for KubeS3 with Gin framework.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: placeholder
+  title: Thumbnail Service
+  version: "1.0"
+paths:
+  /thumbnail:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Creats thumbnails from files.
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create Thumbnail
+      tags:
+      - files
+swagger: "2.0"

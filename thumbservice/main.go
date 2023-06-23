@@ -8,6 +8,10 @@ import (
 	"path/filepath"
 	"strings"
 
+	swaggerFiles "github.com/swaggo/files"
+    ginSwagger "github.com/swaggo/gin-swagger"
+	_ "github.com/xamma/KubeS3/docs"
+
 	"github.com/disintegration/imaging"
 	"github.com/gin-gonic/gin"
 )
@@ -19,15 +23,15 @@ func renderRoot(c *gin.Context) {
 	})
 }
 
-// uploadFile            godoc
-// @Summary      Post files
-// @Description  Upload files to data dir.
+// createThumbnail            godoc
+// @Summary      Create Thumbnail
+// @Description  Creats thumbnails from files.
 // @Tags         files
 // @Produce      json
 // @Success      200 {string} binary
 // @Accept       multipart/form-data
 // @Param        file formData file true "File to upload"
-// @Router       /upload [post]
+// @Router       /thumbnail [post]
 func createThumbnail(c *gin.Context) {
 	config, err := LoadConfig()
 	if err != nil {
@@ -150,6 +154,7 @@ func main() {
 
 	v1.GET("/", renderRoot)
 	v1.POST("/thumbnail", createThumbnail)
+	v1.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	port := fmt.Sprintf(":%s", config.ApiPort)
 	router.Run(port)
