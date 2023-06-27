@@ -1,0 +1,99 @@
+configmap:
+  name: kubes3-configmap
+  data:
+    ALLOWED_MIME_TYPES: >-
+      image/jpeg,
+      image/png,
+      image/bmp,
+      application/pdf,
+      application/json,
+      text/csv  
+    MINIO_HOST: "minio"
+    MINIO_PORT: "9000"
+    API_PORT: "8000"
+    BUCKET_NAME: "my-s3-bucket"
+    THUMB_BUCKET_NAME: "thumbs"
+    THUMBNAIL_SERVICE_HOST: http://kubes3-thumbs-srv:8080/api/v1/thumbnail
+
+ingress:
+  ingressClass: "nginx"
+  name: kubes3-ingress
+  httpService: kubes3-frontend-srv
+  pathType: Prefix
+  path: /
+  portNumber: 80
+  nginxRewriteTarget: /
+
+service:
+  minio:
+    name: minio
+    appSelector: minio
+    type: ClusterIP
+    port: 9000
+    targetPort: 9000
+  thumbs:
+    name: kubes3-thumbs-srv
+    appSelector: kubes3-thumbs
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+  frontend:
+    name: kubes3-frontend-srv
+    appSelector: kubes3-fe
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+  backend:
+    name: kubes3-backend-srv
+    appSelector: kubes3-be
+    type: ClusterIP
+    port: 8000
+    targetPort: 8000
+
+deployment:
+  backend:
+    name: kubes3-be-depl
+    appSelector: kubes3-be
+    restartPolicy: Always
+    imagePullPolicy: Always
+    replicaCount: 3
+    image:
+      name: ghcr.io/xamma/kubes3-backend
+      tag: latest
+    containerPort: 8000
+  frontend:
+    name: kubes3-fe-depl
+    appSelector: kubes3-fe
+    restartPolicy: Always
+    imagePullPolicy: Always
+    replicaCount: 3
+    image:
+      name: ghcr.io/xamma/kubes3-frontend
+      tag: latest
+    containerPort: 80
+  thumbs:
+    name: kubes3-thumbs-depl
+    appSelector: kubes3-thumbs
+    restartPolicy: Always
+    imagePullPolicy: Always
+    replicaCount: 2
+    image:
+      name: ghcr.io/xamma/kubes3-thumbs
+      tag: latest
+    containerPort: 8080
+
+statefulset:
+  name: minio-ss
+  replicaCount: 1
+  serviceName: minio-srv
+  # make sure the appSelector matches your S3 service name
+  appSelector: minio
+  image:
+    name: bitnami/minio
+    tag: latest
+  volume:
+    name: minio-vol
+    mountPath: /data
+    storageRequest: 1Gi
+    storageClassName: openebs-hostpath
+  containerPort: 9000

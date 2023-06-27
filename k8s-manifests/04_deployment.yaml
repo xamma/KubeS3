@@ -72,6 +72,6 @@ spec:
         image: ghcr.io/xamma/kubes3-thumbs:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: thumbs-port
       restartPolicy: Always

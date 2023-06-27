@@ -1,0 +1,13 @@
+Congratulations! Your Kubes3 application has been successfully deployed.
+
+To access the application, follow these steps:
+
+1. Get the Ingress IP or hostname by running the following command:
+   $ kubectl get ingress -n {{ .Release.Namespace }}
+
+2. Get the ressources by running this command:
+   $ kubectl get all -n {{ .Release.Namespace }}
+
+3. Enjoy using KubeS3!
+
+For more information and advanced configuration options, please refer to the documentation.

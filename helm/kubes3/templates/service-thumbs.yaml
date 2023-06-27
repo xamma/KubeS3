@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.thumbs.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: {{ .Values.service.thumbs.appSelector }}
+  type: {{ .Values.service.thumbs.type }}
+  ports:
+  - name: thumbs
+    protocol: TCP
+    port: {{ .Values.service.thumbs.port }}
+    targetPort: {{ .Values.service.thumbs.targetPort }}

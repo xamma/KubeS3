@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.frontend.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.deployment.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.frontend.appSelector }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.frontend.appSelector }}
+    spec:
+      containers:
+      - name: frontend-container
+        image: "{{ .Values.deployment.frontend.image.name }}:{{ .Values.deployment.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.deployment.frontend.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.deployment.frontend.containerPort }}
+          name: frontend-port
+      restartPolicy: {{ .Values.deployment.frontend.restartPolicy }}

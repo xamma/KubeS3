@@ -68,10 +68,32 @@ helm repo update
 helm install openebs --namespace openebs openebs/openebs --create-namespace
 ```
 
+Also make sure nginx ingress controller is installed:  
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install nginx-ingress ingress-nginx/ingress-nginx -n nginx-ingress --create-namespace
+```
+
+### Helm
+I also added this App in my helm-charts, which can be found on **https://xamma.github.io/helm-charts**.  
+
+To use the App on your K8s-Cluster, you need to have ***open-ebs*** and ***nginx-ingress*** installed.  
+```
+helm repo add xammahelm https://xamma.github.io/helm-charts
+helm repo update
+helm search repo xammahelm
+helm install kubes3-release xammahelm/kubes3 -n NAMESPACE --create-namespace
+helm install kubes3-release xammahelm/kubes3 --set key=value --namespace my-namespace
+helm uninstall my-webapp -n my-namespace
+helm repo remove REPONAME
+```
+
 ### CI/CD and GitOps
 I tried to use best-practices regarding CI/CD and GitOps.  
 My CI pipeline is realized with **GithubActions** which build my Frontend- and Backend-ContainerImages and pushes them to the GHCR.  
 The CD part is taken care of from **ArgoCD** (running on K8s) which lets me deploy the Application directly to Kubernetes and keeps
-it up-to-date and synced based on new commits.
+it up-to-date and synced based on new commits.  
+You can also deploy from the Helm-Chart here.  
 
 ![ArgoCD](assets/Argo.png)

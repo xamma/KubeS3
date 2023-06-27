@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+  namespace: {{ .Release.Namespace }}
+data:
+  ALLOWED_MIME_TYPES: "{{ .Values.configmap.data.ALLOWED_MIME_TYPES }}"
+  MINIO_HOST: "{{ .Values.configmap.data.MINIO_HOST }}"
+  MINIO_PORT: "{{ .Values.configmap.data.MINIO_PORT }}"
+  API_PORT: "{{ .Values.configmap.data.API_PORT }}"
+  BUCKET_NAME: "{{ .Values.configmap.data.BUCKET_NAME }}"
+  THUMB_BUCKET_NAME: "{{ .Values.configmap.data.THUMB_BUCKET_NAME }}"
+  THUMBNAIL_SERVICE_HOST: "{{ .Values.configmap.data.THUMBNAIL_SERVICE_HOST }}"

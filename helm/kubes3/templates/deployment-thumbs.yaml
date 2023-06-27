@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.thumbs.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.deployment.thumbs.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.thumbs.appSelector }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.thumbs.appSelector }}
+    spec:
+      containers:
+      - name: thumbs-container
+        image: "{{ .Values.deployment.thumbs.image.name }}:{{ .Values.deployment.thumbs.image.tag }}"
+        imagePullPolicy: {{ .Values.deployment.thumbs.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.deployment.thumbs.containerPort }}
+          name: thumbs-port
+      restartPolicy: {{ .Values.deployment.thumbs.restartPolicy }}

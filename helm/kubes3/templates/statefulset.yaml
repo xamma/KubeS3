@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.statefulset.replicaCount }}
+  serviceName: {{ .Values.statefulset.serviceName }}
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.appSelector }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.appSelector }}
+    spec:
+      containers:
+      - name: minio
+        image: "{{ .Values.statefulset.image.name }}:{{ .Values.statefulset.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.statefulset.containerPort }}
+          name: minio-port
+        volumeMounts:
+        - name: {{ .Values.statefulset.volume.name }}
+          mountPath: {{ .Values.statefulset.volume.mountPath }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.statefulset.volume.name }}
+    spec:
+      # storageClassName: local-path
+      storageClassName: {{ .Values.statefulset.volume.storageClassName }}
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.statefulset.volume.storageRequest }}
