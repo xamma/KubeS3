@@ -1,10 +1,11 @@
-package main
+package config
 
 import (
 	"os"
+	"github.com/xamma/KubeS3/models"
 )
 
-func LoadConfig() (*AppConfig, error) {
+func LoadConfig() (*models.AppConfig, error) {
 	defaultEnvVars := map[string]string{
 		"API_PORT": "8080",
 		"DATA_DIR": "./data",
@@ -13,7 +14,7 @@ func LoadConfig() (*AppConfig, error) {
 	apiPort := getEnv("API_PORT", defaultEnvVars)
 	dataDir := getEnv("DATA_DIR", defaultEnvVars)
 
-	config := &AppConfig{
+	config := &models.AppConfig{
 		ApiPort: apiPort,
 		DataDir: dataDir,
 	}

@@ -1,4 +1,4 @@
-package main
+package models
 
 type AppConfig struct {
 	ApiPort string

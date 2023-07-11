@@ -25,6 +25,7 @@ This is of course not the most efficient way ;)
 - SPA  
 - Microservices  
 - Kubernetes  
+- Helm  
 - ReactJS  
 - Python  
 - Go  

@@ -14,6 +14,9 @@ import (
 
 	"github.com/disintegration/imaging"
 	"github.com/gin-gonic/gin"
+
+	"github.com/xamma/KubeS3/config"
+	"github.com/xamma/KubeS3/helpers"
 )
 
 func renderRoot(c *gin.Context) {
@@ -33,7 +36,7 @@ func renderRoot(c *gin.Context) {
 // @Param        file formData file true "File to upload"
 // @Router       /thumbnail [post]
 func createThumbnail(c *gin.Context) {
-	config, err := LoadConfig()
+	config, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -59,7 +62,7 @@ func createThumbnail(c *gin.Context) {
 
 	if !isSupported {
 		// Return a placeholder image for unsupported file types
-		placeholderPath := getPlaceholderImagePath(ext)
+		placeholderPath := helpers.GetPlaceholderImagePath(ext)
 		c.File(placeholderPath)
 		return
 	}
@@ -93,34 +96,10 @@ func createThumbnail(c *gin.Context) {
 	c.File(thumbnailFilePath)
 
 	// empty the directory
-	err = deleteDirContents(config.DataDir)
+	err = helpers.DeleteDirContents(config.DataDir)
 	if err != nil {
 		log.Fatal(err)
 	}
-}
-
-// Get the path of the placeholder image based on the file extension
-func getPlaceholderImagePath(ext string) string {
-	switch strings.ToLower(ext) {
-	case ".pdf":
-		return "./assets/pdf_placeholder.png"
-	case ".csv":
-		return "./assets/csv_placeholder.png"
-	case ".json":
-		return "./assets/json_placeholder.png"
-	// Add cases for other unsupported file types if needed
-	default:
-		return "./assets/notsupported_placeholder.png" // Default placeholder image for unsupported file types
-	}
-}
-
-func deleteDirContents(dir string) error {
-
-	err := os.RemoveAll(dir)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // @title           Thumbnail Service
@@ -138,7 +117,7 @@ func deleteDirContents(dir string) error {
 // @host      localhost:8080
 // @BasePath  /api/v1
 func main() {
-	config, err := LoadConfig()
+	config, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
