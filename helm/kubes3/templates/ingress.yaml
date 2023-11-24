@@ -4,12 +4,11 @@ kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Release.Namespace }}
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: {{ .Values.ingress.nginxRewriteTarget }}
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
 spec:
+  ingressClassName: {{ .Values.ingress.ingressClass }}
   rules:
-  - http:
+  - host: {{ .Values.ingress.host }}
+    http:
       paths:
       - path: {{ .Values.ingress.path }}
         pathType: {{ .Values.ingress.pathType }}
@@ -18,3 +17,7 @@ spec:
             name: {{ .Values.ingress.httpService }}
             port:
               number: {{ .Values.ingress.portNumber }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.tlssecret }}
