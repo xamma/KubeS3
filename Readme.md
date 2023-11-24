@@ -33,12 +33,19 @@ This is of course not the most efficient way ;)
 - npm / npx / pip  
 - JSON / YAML  
 - Reverse Proxy  
+- TLS/SSL
 - ...
 
 ## The App
 Cloud-native Fullstack-App for interacting with data from and to S3 storage via RestAPI and SPA. Written in Microservice-Architecture.  
 Uses ReactJS in the Frontend, Python with FastAPI in the Backend and MinIO for S3 Storage.  
 Also includes an independent Microservice for creating Thumbnails, written in Go.  
+
+## Pre-Requirements
+Kubernetes-cluster with:
+- StroageProvider (e.g. Longhorn / openEBS) installed & configured
+- NGINX ingress controller installed
+- cert-manager installed & configured
 
 ## How to run
 
@@ -62,6 +69,8 @@ Also I changed the Pod and PVC combination for the minio-Data to an StatefulSet.
 Another change is to not pass the ConfigMap Key-by-Key instead use ***envFrom***.  
 You can still use the old stack: ```kubectl apply -f k8s_stack-old.yaml```  
 
+*OUTDATED*  
+*********************************
 **Important**: The newest Stack uses ***OpenEBS*** as storage provider and thus needs to be installed on the K8s-Cluster the application is deployed to.  
 ```
 helm repo add openebs https://openebs.github.io/charts
@@ -75,6 +84,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx -n nginx-ingress --create-namespace
 ```
+*********************************
 
 ### Helm
 I also added this App in my helm-charts, which can be found on **https://xamma.github.io/helm-charts**.  

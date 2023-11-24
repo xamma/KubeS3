@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nginx-cert
+  namespace: kubes3
+spec:
+  secretName: nginx-tls-secret
+  issuerRef:
+    name: nginx-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - kubes3.k8sdev.local

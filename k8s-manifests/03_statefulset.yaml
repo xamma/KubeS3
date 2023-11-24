@@ -29,7 +29,8 @@ spec:
       name: minio-vol
     spec:
       # storageClassName: local-path
-      storageClassName: openebs-hostpath
+      # storageClassName: openebs-hostpath
+      storageClassName: longhorn
       accessModes:
         - ReadWriteOnce
       resources:

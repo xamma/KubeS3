@@ -4,11 +4,11 @@ kind: Ingress
 metadata:
   name: kubes3-ingress
   namespace: kubes3
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: kubes3.k8sdev.local
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -17,3 +17,7 @@ spec:
             name: kubes3-frontend-srv
             port:
               number: 80
+  tls:
+  - hosts:
+    - kubes3.k8sdev.local
+    secretName: nginx-tls-secret

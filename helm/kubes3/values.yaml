@@ -22,7 +22,9 @@ ingress:
   pathType: Prefix
   path: /
   portNumber: 80
-  nginxRewriteTarget: /
+  host: kubes3.k8sdev.local
+  tlssecret: nginx-tls-secret
+  issuer: nginx-clusterissuer
 
 service:
   minio:
@@ -95,5 +97,5 @@ statefulset:
     name: minio-vol
     mountPath: /data
     storageRequest: 1Gi
-    storageClassName: openebs-hostpath
+    storageClassName: longhorn
   containerPort: 9000
