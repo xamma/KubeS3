@@ -13,6 +13,20 @@ WORKDIR /app
 COPY --from=builder /app/thumbservice .
 COPY --from=builder /app/assets /app/assets
 
+# Create non root user
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    thumbuser
+
+# Switch to non-privileged user
+USER thumbuser
+
 EXPOSE 8080
 
 # CMD sh -c "sleep infinity"
