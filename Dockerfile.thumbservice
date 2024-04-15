@@ -24,6 +24,9 @@ RUN adduser \
     --uid "${UID}" \
     thumbuser
 
+# Grant permissions to the non-root user to write to /app directory
+RUN chown thumbuser /app
+
 # Switch to non-privileged user
 USER thumbuser
 

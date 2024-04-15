@@ -23,6 +23,9 @@ RUN adduser \
     --uid "${UID}" \
     nginxweb
 
+RUN chown -R nginxweb /usr/share/nginx/html
+RUN chown -R nginxweb /etc/nginx
+
 # Switch to non-privileged user
 USER nginxweb
 
