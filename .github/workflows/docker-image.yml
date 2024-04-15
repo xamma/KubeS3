@@ -1,6 +1,13 @@
 name: Docker Image CI
 
 on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Build images'
+        type: choice
+        options:
+        - docker
   push:
     branches: [ "master" ]
   pull_request:
